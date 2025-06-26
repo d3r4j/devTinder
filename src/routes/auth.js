@@ -47,15 +47,21 @@ authRouter.post("/login", async (req, res) => {
 
 
             // ADD TOKEN TO COOKIE AND SEND IT BACK TO USER
-            res.cookie("token", token);
+            res.cookie("token", token, {
+                httpOnly: true, // cannot access from JS (safer)
+                sameSite: "Lax", // adjust to "None" if needed
+                secure: false,   // true if using HTTPS
 
-            res.send("login successfully")
+                expires: new Date(Date.now() + 8 * 3600000)
+            });
+
+            res.send(user);
         } else {
             throw new Error("invalid password!")
         }
     }
     catch (err) {
-        res.status(400).send("ERROR >>  " + err.message)
+        res.status(400).send("ERROR :" + ' ' + err.message)
     }
 
 })
@@ -65,7 +71,7 @@ authRouter.post("/logout", async (req, res) => {
     res.cookie("token", null, {
         expires: new Date(Date.now())
     });
-    res.send("logout sucessfully");
+    res.send("logout sucessfull");
 })
 
 

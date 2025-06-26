@@ -4,8 +4,12 @@ const app = express();
 const User = require("./models/user");
 const userModel = require("./models/user");
 const cookies = require("cookie-parser");
+const cors = require('cors');
 
-
+app.use(cors({
+    origin: 'http://localhost:4200',
+    credentials: true,
+}));
 app.use(express.json());
 // create new user  / signup API 
 app.use(cookies()) // midddleware to read cookies
@@ -140,10 +144,13 @@ app.patch("/user/:userId", async (req, res) => {
 
         // console.log("id", userId, data)
         await userModel.findByIdAndUpdate({ _id: userId }, data, {
-            retrunDocument: "after",
+
+            returnDocument: "after",
             runValidators: true,
         })
         console.log(User);
+
+        // res.status(200).json(updatedUser)
         res.send("user updated successfully");
 
     }
