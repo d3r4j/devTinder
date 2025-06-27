@@ -84,7 +84,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         const users = await User.find({
             $and: [                                                                     // $and means and querry
                 { _id: { $nin: Array.from(hideUsersFromFeed) }, }, // all user which are not in the array we made from set using Array.from
-                { _id: { $ne: loggedInUser } } //  all users from except own profile. $ne means not equal to, $nin means not in this arrray
+                { _id: { $ne: loggedInUser._id } } //  all users from except own profile. $ne means not equal to, $nin means not in this arrray
             ]
 
         }).select(USER_SAFE_DATA).skip(skip).limit(limit)
