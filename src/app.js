@@ -5,6 +5,7 @@ const User = require("./models/user");
 const userModel = require("./models/user");
 const cookies = require("cookie-parser");
 const cors = require('cors');
+require("dotenv").config();
 
 app.use(cors({
     origin: 'http://localhost:4200',
@@ -33,7 +34,7 @@ app.use("/", userRouter)
 connectDB()
     .then(() => {
         console.log("database connection successful ")
-        app.listen(7777, () => {
+        app.listen(process.env.PORT, () => {
             console.log("server is listening to port 7777")
         })
 

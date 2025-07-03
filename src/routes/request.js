@@ -3,7 +3,7 @@ const requestRouter = express.Router()
 const { userAuth } = require("../middlewares/auth"); // add this to any  api to make it strong
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require("../models/user")
-
+const sendEmail = require("../utils/sendEmail")
 
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
     try {
@@ -43,6 +43,12 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
         });
 
         const data = await connectionRequest.save() // .save will save it in the DB 
+        // sending email
+
+        const emailRes = await sendEmail.run("A New Friend Request From " + req.user.firstName,
+            req.user.firstName + " reacted " + status + " on " + toUser.firstName
+        )
+        console.log(emailRes)
 
         res.json({
             message: req.user.firstName + " reacted " + status + " on " + toUser.firstName,
