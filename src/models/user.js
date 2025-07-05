@@ -4,6 +4,16 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
+    isPremium: {
+        type: Boolean,
+        deafult: false,
+    },
+    membershipType: {
+        type: String,
+    },
+    // membershipValidity: {
+    //     type: Number
+    // },
     firstName: {
         type: String,
         required: true,
