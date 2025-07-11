@@ -23,7 +23,7 @@ const initializeSocket = (server) => {
         // console.log("⚡ New client connected with socket ID: ", socket.id);
         socket.on("joinChat", ({ firstName, userId, targetUserId }) => {
             const roomId = getSecretRoom(userId, targetUserId);
-            console.log(firstName + " has joined the room with id" + roomId)
+            // console.log(firstName + " has joined the room with id" + roomId)
             socket.join(roomId);
         })
 
