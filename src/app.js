@@ -5,11 +5,10 @@ const User = require("./models/user");
 const userModel = require("./models/user");
 const cookies = require("cookie-parser");
 const cors = require('cors');
+const http = require('http')
+
 require("dotenv").config();
 require("./utils/cron-job")
-
-
-
 
 app.use(cors({
     origin: 'http://localhost:4200',
@@ -25,21 +24,22 @@ const profileRouter = require("./routes/profile")
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
 const paymentRouter = require("./routes/payment");
+const initializeSocket = require("./utils/socket");
+const chatRouter = require("./routes/chat");
 
 app.use("/", authRouter)
 app.use("/", profileRouter)
 app.use("/", requestRouter)
 app.use("/", userRouter)
 app.use("/", paymentRouter)
-
-
-
-
+app.use("/", chatRouter)
+const server = http.createServer(app);
+initializeSocket(server)
 
 connectDB()
     .then(() => {
         console.log("database connection successful ")
-        app.listen(process.env.PORT, () => {
+        server.listen(process.env.PORT, () => {
             console.log("server is listening to port 7777")
         })
 
