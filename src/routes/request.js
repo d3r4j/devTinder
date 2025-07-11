@@ -48,7 +48,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
         const emailRes = await sendEmail.run("A New Friend Request From " + req.user.firstName,
             req.user.firstName + " reacted " + status + " on " + toUser.firstName
         )
-        console.log(emailRes)
+        // console.log(emailRes)
 
         res.json({
             message: req.user.firstName + " reacted " + status + " on " + toUser.firstName,

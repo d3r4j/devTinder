@@ -21,12 +21,12 @@ cron.schedule(" 0 9 * * *", async () => {
 
         // now we need to find all the email id, make set and an array by using ...
         const listOfEmails = [...new Set(pendingRequest.map(req => req.toUserId.emailId))]
-        console.log(listOfEmails)
+        // console.log(listOfEmails)
         for (const email of listOfEmails) {
             // sending emails
             try {
                 const res = await sendEmail.run("New Friend Request Pending For : " + email, "There are some request pending, please login to quantqbits.space and accept or reject them")
-                console.log(res);
+                // console.log(res);
             }
             catch (err) {
                 console.log("error sending email ", err)
