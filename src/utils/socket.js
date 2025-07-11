@@ -33,7 +33,7 @@ const initializeSocket = (server) => {
 
                 // const roomId = [userId, targetUserId].sort().join("_")
                 const roomId = getSecretRoom(userId, targetUserId);
-                console.log(">" + firstName + ":" + text)
+                // console.log(">" + firstName + ":" + text)
                 // checking if userID and targerUserId are friends only then make a socket connection
                 ConnectionRequestModel.findOne({
                     fromUserId: userId,
